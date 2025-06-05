@@ -9,7 +9,7 @@
     #include <unistd.h>
 #endif
 
-void sleep(int ms) {
+void delay(int ms) {
 #ifdef _WIN32
     Sleep(ms);
 #else
@@ -43,8 +43,10 @@ cidade sortearCidade(cidade cidades[], int totalCidades) {
     return cidades[indiceSorteado];
 }
 
+int pontuacao = 0;
 // Função para apresentar a pergunta e receber a resposta
 void apresentarPergunta(cidade cidadeAtual) {
+    printf("Sua pontuação atual é: %d", pontuacao);
     printf("\nPergunta sobre %s:\n", cidadeAtual.nome);
     printf("%s\n", cidadeAtual.pergunta);
     printf("1) %s\n", cidadeAtual.alt1);
@@ -57,10 +59,11 @@ void apresentarPergunta(cidade cidadeAtual) {
     
     if (resposta == cidadeAtual.correctAnswer) {
         printf("\nResposta correta! Parabéns!\n");
+        pontuacao += 10;
     } else {
         printf("\nResposta incorreta! A alternativa correta era: %d\n", cidadeAtual.correctAnswer);
     }
-    sleep(3000);
+    delay(3000);
     clean();
 }
 
@@ -77,18 +80,21 @@ void showQuiz(){
     srand(time(NULL));
     
     for(int i = 0; i < 5; i++) {
-        printf("Você está na cidade de %s\nEstado: %s\nLocalizada sob as coordenadas: %s\n", 
-               cidades[i].nome, cidades[i].estado, cidades[i].coordenadas);
-        sleep(5000);
-        printf("Uma curiosidade sobre %s é que %s\n", cidades[i].nome, cidades[i].estado); //colocar aqui .curiosidades
-        sleep(5000);
-        clean();
-        
-        // Sorteia uma cidade e apresenta a pergunta
         cidade cidadeSorteada = sortearCidade(cidades, 5);
-        apresentarPergunta(cidadeSorteada);
+        printf("Você está na cidade de %s\nEstado: %s\nLocalizada sob as coordenadas: %s\n", 
+               cidadeSorteada.nome, cidadeSorteada.estado, cidadeSorteada.coordenadas);
+        delay(5000);
+        printf("Uma curiosidade sobre %s é que %s\n", cidadeSorteada.nome, cidadeSorteada.estado); //colocar aqui .curiosidades
+        delay(5000);
+        clean();
+                apresentarPergunta(cidadeSorteada);
+
+        
     }
+    printf("Sua pontuação final é %d", pontuacao);
 }
+
+
 
 int main(){
     showQuiz();
