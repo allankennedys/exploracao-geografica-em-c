@@ -83,11 +83,9 @@ void apresentarPergunta(cidade cidade) {
     printf("Você está na cidade de %s\n", cidade.nome);
     printf("Estado: %s\n", cidade.estado);
     printf("Coordenadas: %s\n", cidade.coordenadas);
-    delay(2500);
+    delay(5000);
     clean();
-    
 
-    delay(4000);
 }
 
 void showQuiz() {
