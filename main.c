@@ -50,16 +50,12 @@ void embaralharCidades(cidade cidades[], int total) {
 }
 
 void apresentarPergunta(cidade cidade) {
-    // 1. Mensagem carregando
-    clean();
+
+    
     printf("Um momento...\nEstamos te transportando para uma nova aventura!\n");
     printf("Carregando informações sobre a cidade...\n");
     delay(1500);
 
-    // 2. Cidade e coordenadas
-
-
-    // 3. Pergunta e alternativas
     clean();
     printf("Curiosidade: %s\n\n", cidade.curiosidade);
     printf("%s\n", cidade.pergunta);
@@ -72,7 +68,6 @@ void apresentarPergunta(cidade cidade) {
     scanf("%d", &resposta);
     while(getchar() != '\n');
 
-    // 4. Resposta e explicação
     clean();
     if (resposta == cidade.correctAnswer) {
         printf("Resposta correta! +10 pontos.\n\n");
@@ -219,6 +214,8 @@ cidade cidades[25] = {
 
     srand(time(NULL));
     embaralharCidades(cidades, 10);
+     printf("Bem vindo ao jogo Exploração Geográfica com C!");
+    printf("\n");
 
     for (int i = 0; i < 10; i++) {
         apresentarPergunta(cidades[i]);
@@ -242,6 +239,7 @@ cidade cidades[25] = {
 
 int main() {
     setlocale(LC_ALL, "Portuguese");
+
     showQuiz();
     return 0;
 }
