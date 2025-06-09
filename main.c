@@ -38,6 +38,60 @@ typedef struct cidade {
     int correctAnswer;
 } cidade;
 
+typedef struct Node {
+    cidade cidadeVisitada;
+    struct Node* proximo;
+} Node;
+
+typedef struct Pilha {
+    Node* topo;
+    int tamanho;
+} Pilha;
+
+
+Pilha* criarPilha() {
+    Pilha* pilha = (Pilha*)malloc(sizeof(Pilha));
+    pilha->topo = NULL;
+    pilha->tamanho = 0;
+    return pilha;
+}
+
+void empilhar(Pilha* pilha, cidade cidade) {
+    Node* novoNo = (Node*)malloc(sizeof(Node));
+    novoNo->cidadeVisitada = cidade;
+    novoNo->proximo = pilha->topo;
+    pilha->topo = novoNo;
+    pilha->tamanho++;
+}
+
+int pilhaVazia(Pilha* pilha) {
+    return pilha->topo == NULL;
+}
+
+void exibirPilha(Pilha* pilha) {
+    printf("\n Durante a exploração você visitou as seguintes cidades:\n");
+    
+    Node* atual = pilha->topo;
+    int contador = 1;
+    
+    while (atual != NULL) {
+        printf("%d. %s, %s\n", contador, atual->cidadeVisitada.nome, atual->cidadeVisitada.estado);
+        atual = atual->proximo;
+        contador++;
+    }
+    printf("\n");
+    printf("Ordem das cidades que você visitou (do mais recente ao mais antigo):\n\n");
+}
+
+void liberarPilha(Pilha* pilha) {
+    while (!pilhaVazia(pilha)) {
+        Node* temp = pilha->topo;
+        pilha->topo = pilha->topo->proximo;
+        free(temp);
+    }
+    free(pilha);
+}
+
 int pontuacao = 0;
 
 void embaralharCidades(cidade cidades[], int total) {
@@ -214,15 +268,19 @@ cidade cidades[25] = {
 
     srand(time(NULL));
     embaralharCidades(cidades, 10);
-     printf("Bem vindo ao jogo Exploração Geográfica com C!");
+    
+    Pilha* cidadesVisitadas = criarPilha();
+    printf("Bem vindo ao jogo Exploração Geográfica com C!");
     printf("\n");
 
     for (int i = 0; i < 10; i++) {
         apresentarPergunta(cidades[i]);
+        empilhar(cidadesVisitadas, cidades[i]);
     }
 
     clean();
     printf("\nFim do quiz!\nSua pontuação final foi: %d\n\n", pontuacao);
+    exibirPilha(cidadesVisitadas);
     if (pontuacao >= 70) {
         printf("Parabéns, aventureiro!\n");
         printf("Você demonstrou um grande conhecimento sobre as cidades brasileiras!\n");
@@ -233,8 +291,9 @@ cidade cidades[25] = {
         printf("Você pode melhorar sua pontuação na próxima vez!\n");
     }
 
-    delay(5000);
+    delay(10000);
     clean();
+    liberarPilha(cidadesVisitadas);
 }
 
 int main() {

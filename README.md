@@ -48,13 +48,12 @@ Isso permite que o jogo tenha uma experiência semelhante em diferentes sistemas
 ## 📦 Estrutura do jogo
 
 - As informações sobre as cidades (nome, estado, coordenadas, curiosidades e perguntas) estão armazenadas em uma `struct`.
+- Utilizamos uma estrutura de pilha para armazenar e exibir o histórico de cidades pelas quais o jogador passou.
 - Cada execução do jogo sorteia 10 cidades aleatórias entre 25 disponíveis.
 - O jogador ganha 10 pontos por resposta correta.
 - Ao final do quiz, a pontuação é exibida com um feedback motivacional.
 
-## 💡 Melhorias futuras
 
-- Acrescentaremos a funcionalidade de exibir a trilha com as cidades pelas quais o jogador passou, utilizando uma pilha.
 
 ## 
 Este projeto foi desenvolvido com foco educacional e pode ser expandido conforme o interesse em C e desenvolvimento de jogos simples via terminal.
