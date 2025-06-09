@@ -80,7 +80,7 @@ void exibirPilha(Pilha* pilha) {
         contador++;
     }
     printf("\n");
-    printf("Ordem das cidades que você visitou (do mais recente ao mais antigo):\n\n");
+    printf("Ordem das cidades que você visitou (do mais recente ao mais antigo)\n\n");
 }
 
 void liberarPilha(Pilha* pilha) {
